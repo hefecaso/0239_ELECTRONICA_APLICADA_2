@@ -29,13 +29,13 @@ titulo.pack(fill = tkinter.X)
 
 def usuario():
     exec(open("Ventana_usuario.py").read())
-    root.destroy()
+    destroy()
     #reconocimiento = system(f"lxterminal -e python3 Reconocimiento/ReconocimientoFacial.py")
 
 def admin():
     #exec(open("Ventana_admin.py").read())
     system(f"lxterminal -e python3 Validación_admin.py")
-    root.destroy()
+    destroy()
 
 #############
 #   Botones #
