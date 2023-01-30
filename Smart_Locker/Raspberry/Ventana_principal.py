@@ -29,11 +29,12 @@ titulo.pack(fill = tkinter.X)
 
 def usuario():
     #exec(open("Ventana_usuario.py").read())
-    system(f"lxterminal -e python3 Reconocimiento/ReconocimientoFacial.py")
     Tk().destroy
+    system(f"lxterminal -e python3 Reconocimiento/ReconocimientoFacial.py")
 
 def admin():
     #exec(open("Ventana_admin.py").read())
+    Tk().destroy
     system(f"lxterminal -e python3 Validación_admin.py")
 
 
