@@ -27,15 +27,22 @@ titulo.pack(fill = tkinter.X)
 #   funciones    #
 ##################
 
-def usuario():
-    exec(open("Ventana_usuario.py").read())
-    destroy()
+def usuario(self, *funcs):
+    a = exec(open("Ventana_usuario.py").read())
+    b = ventana.destroy
+    def combinedFunc(a, b):
+        for f in funcs:
+            f(a, b)
+    return combinedFunc
+
+#def usuario():
+#    exec(open("Ventana_usuario.py").read())
     #reconocimiento = system(f"lxterminal -e python3 Reconocimiento/ReconocimientoFacial.py")
 
 def admin():
     #exec(open("Ventana_admin.py").read())
     system(f"lxterminal -e python3 Validación_admin.py")
-    destroy()
+
 
 #############
 #   Botones #
