@@ -9,6 +9,7 @@ from os import system
 ventana = Tk()
 #ventana.geometry("410x650")
 ventana.attributes('-fullscreen', True)
+scrollbar = tkinter.Scrollbar(orient=tkinter.VERTICAL)
 
 
 titulo = tkinter.Label(
@@ -28,16 +29,12 @@ titulo.pack(fill = tkinter.X)
 ##################
 
 def usuario():
-    #exec(open("Ventana_usuario.py").read())
-    ventana.iconify()
-    system(f"lxterminal -e python3 Reconocimiento/ReconocimientoFacial.py")
-    usuario.iconify()
+    exec(open("Ventana_usuario.py").read())
+    #system(f"lxterminal -e python3 Reconocimiento/ReconocimientoFacial.py")
 
 def admin():
-    #exec(open("Ventana_admin.py").read())
-    ventana.iconify()
-    system(f"lxterminal -e python3 Validación_admin.py")
-    admin.iconify()
+    exec(open("Ventana_admin.py").read())
+    #system(f"lxterminal -e python3 Validación_admin.py")
 
 
 #############
