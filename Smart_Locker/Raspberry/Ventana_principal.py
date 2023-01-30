@@ -31,11 +31,13 @@ def usuario():
     #exec(open("Ventana_usuario.py").read())
     ventana.iconify()
     system(f"lxterminal -e python3 Reconocimiento/ReconocimientoFacial.py")
+    usuario.iconify()
 
 def admin():
     #exec(open("Ventana_admin.py").read())
     ventana.iconify()
     system(f"lxterminal -e python3 Validación_admin.py")
+    admin.iconify()
 
 
 #############
