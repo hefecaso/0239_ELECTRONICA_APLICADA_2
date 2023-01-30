@@ -22,7 +22,8 @@ def menu():
     print("10. Clonar ramas a repositorio local.")
     print("11. Cambiando de rama.")
     print("12. git add + commit + push.")
-    print("13. Salir.\n")
+    print("13. Opciones combinadas para rest hard 6+7+8.")
+    print("14. Salir.\n")
 
 
 while True:
@@ -127,6 +128,20 @@ while True:
         print('=====================================')
 
     elif opc == '13':
+        print('=====================================')
+        print("Opciones combinadas para rest hard 6+7+8\n")
+        print("Mostrando historial de commits\n")
+        system(f"git log --oneline --decorate")
+        print("")
+        print("Git reset hard\n")
+        commit = input("Ingrese ID del commit a regresar: ")
+        system(f"git reset --hard {commit}")
+        print("")
+        print("Git reset hard\n")
+        system(f"git push -f origin")
+        print('=====================================')
+
+    elif opc == '14':
         print('====================================================================')
         print("Saliendo del programa.")
         print('====================================================================')
