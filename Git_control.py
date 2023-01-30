@@ -123,7 +123,7 @@ while True:
         system(f"git pull")
         system(f"git add .")
         system(f'git commit -m "{comentario}"')
-        system(f"git add push")
+        system(f"git push")
         print('=====================================')
 
     elif opc == '13':
