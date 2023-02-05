@@ -11,12 +11,12 @@ def register_user():
     password = password_entry.get()
 
     # Guardar datos en csv
-    with open("usuarios.csv", "a") as csvfile:
+    with open(".Datos_usuarios/usuarios.csv", "a") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow([user, locker, dpi, password])
 
     # Crear carpeta para almacenar las fotos biométricas
-    os.makedirs(user)
+    os.makedirs(f".Datos_usuarios/{user}")
 
     # Capturar fotos biométricas con OpenCV
     cap = cv2.VideoCapture(0)
