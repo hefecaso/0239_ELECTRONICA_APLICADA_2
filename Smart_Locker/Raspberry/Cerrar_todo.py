@@ -1,3 +1,3 @@
 import os
 
-os.system("pkill terminal")
+os.system("pkill lxterminal")
