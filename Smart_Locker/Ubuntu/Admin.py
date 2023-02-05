@@ -16,6 +16,7 @@ def cerrar_todo():
     os.system("python3 Cerrar_todo.py")
     
 root = tk.Tk()
+root.title("Ventana admin")
 root.geometry("200x200")
 
 administrator_button = tk.Button(root, text="Abrir Administrator", command=abrir_administrator)

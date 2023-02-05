@@ -1,39 +1,101 @@
 import tkinter as tk
 import csv
 import os
+import cv2
 import tkinter.messagebox
 
-def ingresar():
-    usuario = usuario_entry.get()
-    contrasena = contrasena_entry.get()
+dataPath = '.Datos_usuarios/Usuarios' #Cambia a la ruta donde hayas almacenado Data
+imagePaths = os.listdir(dataPath)
+#print('imagePaths=',imagePaths)
 
-    if os.path.exists('.Datos_usuarios/usuarios.csv'):
-        with open('.Datos_usuarios/usuarios.csv', 'r') as archivo_csv:
-            reader = csv.DictReader(archivo_csv)
-            for fila in reader:
-                if fila['Username'] == usuario and fila['Contraseña'] == contrasena:
-                    tkinter.messagebox.showinfo('Locker', 'Locker abierto')
-                    root.destroy()
-                    return
-    tkinter.messagebox.showerror('Locker', 'Credenciales incorrectas')
+face_recognizer = cv2.face.LBPHFaceRecognizer_create()
 
-root = tk.Tk()
-root.title("Acceso a locker")
-root.geometry("400x200")
+# Leyendo el modelo
 
-usuario_label = tk.Label(root, text="Usuario:")
-usuario_label.pack()
+face_recognizer.read('modeloLBPHFace.xml')
 
-usuario_entry = tk.Entry(root)
-usuario_entry.pack()
+cap = cv2.VideoCapture(-1)
+#cap = cv2.VideoCapture('Video.mp4')
 
-contrasena_label = tk.Label(root, text="Contraseña:")
-contrasena_label.pack()
+faceClassif = cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
 
-contrasena_entry = tk.Entry(root, show="*")
-contrasena_entry.pack()
+while True:
+    ret,frame = cap.read()
+    if ret == False: break
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    auxFrame = gray.copy()
 
-ingresar_boton = tk.Button(root, text="Ingresar", command=ingresar)
-ingresar_boton.pack()
+    faces = faceClassif.detectMultiScale(gray,1.3,5)
 
-root.mainloop()
+    for (x,y,w,h) in faces:
+        rostro = auxFrame[y:y+h,x:x+w]
+        rostro = cv2.resize(rostro,(150,150),interpolation= cv2.INTER_CUBIC)
+        result = face_recognizer.predict(rostro)
+
+        cv2.putText(frame,'{}'.format(result),(x,y-5),1,1.3,(255,255,0),1,cv2.LINE_AA)
+
+        # LBPHFace
+        if result[1] < 70:
+            cv2.putText(frame,'{}'.format(imagePaths[result[0]]),(x,y-25),2,1.1,(0,255,0),1,cv2.LINE_AA)
+            cv2.rectangle(frame, (x,y),(x+w,y+h),(0,255,0),2)
+        else:
+            cv2.putText(frame,'Desconocido',(x,y-20),2,0.8,(0,0,255),1,cv2.LINE_AA)
+            cv2.rectangle(frame, (x,y),(x+w,y+h),(0,0,255),2)
+
+    cv2.imshow('frame',frame)
+    k = cv2.waitKey(1)
+    if k == 27:
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+
+def verificar_usuario():
+    usuario = entry_usuario.get()
+    contraseña = entry_contraseña.get()
+    carpeta = f'.Datos_usuarios/Usuarios/{usuario}'
+    existe = False
+
+    with open(".Datos_usuarios/usuarios.csv", "r") as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            if row["Username"] == usuario and row["Contraseña"] == contraseña:
+                existe = True
+                numero_locker = row["Locker"]
+                break
+
+    if existe:
+        if os.path.exists(carpeta):
+            tkinter.messagebox.showinfo('Abriendo locker', f"Locker abierto!\nNúmero de locker: {numero_locker}")
+            ventana.destroy()
+
+        else:
+            ventana_abierta = tk.Toplevel(ventana)
+            ventana_abierta.geometry("200x100")
+            etiqueta = tk.Label(ventana_abierta, text="No se encontró la carpeta para reconocimiento biométrico")
+            etiqueta.pack()
+    else:
+        #ventana_abierta = tk.Toplevel(ventana)
+        tkinter.messagebox.showerror('Error', 'Credenciales incorrectas')
+        ventana.destroy()
+
+ventana = tk.Tk()
+ventana.geometry("400x300")
+
+
+etiqueta_usuario = tk.Label(ventana, text="Nombre de usuario:")
+etiqueta_usuario.pack()
+
+entry_usuario = tk.Entry(ventana)
+entry_usuario.pack()
+
+etiqueta_contraseña = tk.Label(ventana, text="Contraseña:")
+etiqueta_contraseña.pack()
+
+entry_contraseña = tk.Entry(ventana, show="*")
+entry_contraseña.pack()
+
+boton = tk.Button(ventana, text="Verificar", command=verificar_usuario)
+boton.pack()
+
+ventana.mainloop()

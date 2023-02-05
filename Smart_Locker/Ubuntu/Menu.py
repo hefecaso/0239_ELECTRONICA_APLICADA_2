@@ -2,15 +2,16 @@ import tkinter as tk
 import csv
 import os
 import tkinter.messagebox
+from os import system
 
 def abrir_locker():
     # Código para abrir el locker
-    exec(open("Abrir_locker.py").read())
+    system(f"gnome-terminal -- python3 Abrir_locker.py")
     pass
 
 def registro_nuevo():
     # Código para abrir el script de registro de nuevo usuario
-    exec(open("Registro_nuevo.py").read())
+    system(f"gnome-terminal -- python3 Admin_nuevo.py")
     pass
 
 def admin():
@@ -48,7 +49,7 @@ admin_contrasena_label.pack()
 admin_contrasena_entry = tk.Entry(root, show="*")
 admin_contrasena_entry.pack()
 
-admin_boton = tk.Button(root, text="Admin", command=admin)
+admin_boton = tk.Button(root, text="Modo Admin", command=admin)
 admin_boton.pack()
 
 root.mainloop()
