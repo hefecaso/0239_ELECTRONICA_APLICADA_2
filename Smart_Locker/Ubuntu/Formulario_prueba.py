@@ -4,8 +4,7 @@
 # Let's import tkinter 
 from tkinter import *
 #import tkinter as tk
-import cv2
-import os
+
 
 # Manipulate data from registration fields 
 def send_data():
