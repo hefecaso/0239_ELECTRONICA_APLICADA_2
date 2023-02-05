@@ -11,7 +11,7 @@ def abrir_locker():
 
 def registro_nuevo():
     # Código para abrir el script de registro de nuevo usuario
-    system(f"gnome-terminal -- python3 Admin_nuevo.py")
+    system(f"gnome-terminal -- python3 Registro_nuevo.py")
     pass
 
 def admin():
@@ -24,6 +24,7 @@ def admin():
             for fila in reader:
                 if fila['Username'] == usuario and fila['Contraseña'] == contrasena:
                     exec(open("Admin.py").read())
+                    #system(f"gnome-terminal -- python3 Admin.py")
                     return
     tkinter.messagebox.showerror('Admin', 'Credenciales incorrectas')
 

@@ -9,7 +9,8 @@ def abrir_usuarios():
 
 def admin_nuevo():
     # Código para abrir el script de registro de nuevo usuario
-    exec(open("Admin_nuevo.py").read())
+    #exec(open("Admin_nuevo.py").read())
+    system(f"gnome-terminal -- python3 Admin_nuevo.py")
     pass
 
 def cerrar_todo():
