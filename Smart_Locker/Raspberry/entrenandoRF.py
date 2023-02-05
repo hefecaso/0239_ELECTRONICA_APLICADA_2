@@ -3,7 +3,7 @@ import os
 import numpy as np
 import time
 
-dataPath = 'Usuarios' #Cambia a la ruta donde hayas almacenado Data
+dataPath = '.Datos_usuarios/Usuarios' #Cambia a la ruta donde hayas almacenado Data
 peopleList = os.listdir(dataPath)
 print('Lista de personas: ', peopleList)
 
