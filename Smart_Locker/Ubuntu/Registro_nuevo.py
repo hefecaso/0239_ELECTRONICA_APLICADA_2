@@ -20,7 +20,7 @@ def register_user():
         writer.writerow([user, locker, dpi, password])
 
     # Crear carpeta para almacenar las fotos biométricas
-    os.makedirs(f"Usuarios/{user}")
+    os.makedirs(f".Datos_usuarios/Usuarios/{user}")
 
     # Capturar fotos biométricas con OpenCV
     #########################################
