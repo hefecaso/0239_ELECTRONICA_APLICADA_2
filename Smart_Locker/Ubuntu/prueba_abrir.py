@@ -2,10 +2,20 @@ import tkinter as tk
 import csv
 import os
 import cv2
+import tkinter.messagebox
+import RPi.GPIO as GPIO
+import time
+
+GPIO.setmode(GPIO.BOARD)
+
+# Configuración de los pines de salida para los servos
+servo_pins = [11, 12, 13, 15, 16]
+for pin in servo_pins:
+    GPIO.setup(pin, GPIO.OUT)
 
 dataPath = '.Datos_usuarios/Usuarios' #Cambia a la ruta donde hayas almacenado Data
 imagePaths = os.listdir(dataPath)
-print('imagePaths=',imagePaths)
+#print('imagePaths=',imagePaths)
 
 face_recognizer = cv2.face.LBPHFaceRecognizer_create()
 
@@ -18,36 +28,12 @@ cap = cv2.VideoCapture(-1)
 
 faceClassif = cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
 
-while True:
-    ret,frame = cap.read()
-    if ret == False: break
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    auxFrame = gray.copy()
-
-    faces = faceClassif.detectMultiScale(gray,1.3,5)
-
-    for (x,y,w,h) in faces:
-        rostro = auxFrame[y:y+h,x:x+w]
-        rostro = cv2.resize(rostro,(150,150),interpolation= cv2.INTER_CUBIC)
-        result = face_recognizer.predict(rostro)
-
-        cv2.putText(frame,'{}'.format(result),(x,y-5),1,1.3,(255,255,0),1,cv2.LINE_AA)
-
-        # LBPHFace
-        if result[1] < 70:
-            cv2.putText(frame,'{}'.format(imagePaths[result[0]]),(x,y-25),2,1.1,(0,255,0),1,cv2.LINE_AA)
-            cv2.rectangle(frame, (x,y),(x+w,y+h),(0,255,0),2)
-        else:
-            cv2.putText(frame,'Desconocido',(x,y-20),2,0.8,(0,0,255),1,cv2.LINE_AA)
-            cv2.rectangle(frame, (x,y),(x+w,y+h),(0,0,255),2)
-
-    cv2.imshow('frame',frame)
-    k = cv2.waitKey(1)
-    if k == 27:
-        break
-
-cap.release()
-cv2.destroyAllWindows()
+def open_locker(locker_number):
+    # Activación del servo correspondiente durante 5 segundos
+    servo_pin = servo_pins[locker_number-1]
+    GPIO.output(servo_pin, GPIO.HIGH)
+    time.sleep(5)
+    GPIO.output(servo_pin, GPIO.LOW)
 
 def verificar_usuario():
     usuario = entry_usuario.get()
@@ -60,25 +46,24 @@ def verificar_usuario():
         for row in reader:
             if row["Username"] == usuario and row["Contraseña"] == contraseña:
                 existe = True
-                numero_locker = row["Locker"]
+                numero_locker = int(row["Locker"])
                 break
 
     if existe:
         if os.path.exists(carpeta):
-            ventana_abierta = tk.Toplevel(ventana)
-            ventana_abierta.geometry("200x100")
-            etiqueta = tk.Label(ventana_abierta, text="Locker abierto\nNúmero de locker: " + numero_locker)
-            etiqueta.pack()
+            open_locker(numero_locker)
+            tkinter.messagebox.showinfo('Abriendo locker', f"Locker abierto!\nNúmero de locker: {numero_locker}")
+            ventana.destroy()
+
         else:
             ventana_abierta = tk.Toplevel(ventana)
             ventana_abierta.geometry("200x100")
             etiqueta = tk.Label(ventana_abierta, text="No se encontró la carpeta para reconocimiento biométrico")
             etiqueta.pack()
     else:
-        ventana_abierta = tk.Toplevel(ventana)
-        ventana_abierta.geometry("200x100")
-        etiqueta = tk.Label(ventana_abierta, text="Credenciales incorrectas")
-        etiqueta.pack()
+        #ventana_abierta = tk.Toplevel(ventana)
+        tkinter.messagebox.showerror('Error', 'Credenciales incorrectas')
+        ventana.destroy()
 
 ventana = tk.Tk()
 ventana.geometry("400x300")
@@ -99,3 +84,5 @@ boton = tk.Button(ventana, text="Verificar", command=verificar_usuario)
 boton.pack()
 
 ventana.mainloop()
+
+GPIO.cleanup()

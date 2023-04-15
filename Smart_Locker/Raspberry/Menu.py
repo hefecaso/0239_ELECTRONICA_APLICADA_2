@@ -6,7 +6,7 @@ from os import system
 
 def abrir_locker():
     # Código para abrir el locker
-    system(f"lxterminal -e python3 Abrir_locker.py")
+    system(f"lxterminal -e python3 prueba_abrir.py")
     pass
 
 def registro_nuevo():
