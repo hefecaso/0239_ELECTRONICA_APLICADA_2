@@ -8,9 +8,9 @@ import time
 
 GPIO.setmode(GPIO.BOARD)
 
-# Configuración de los pines de salida para los servos
-servo_pins = [11, 12, 13, 15, 16]
-for pin in servo_pins:
+# Configuración de los pines de salida para las cerraduras
+cerradura_pins = [7, 29, 31, 24, 26]
+for pin in cerradura_pins:
     GPIO.setup(pin, GPIO.OUT)
 
 dataPath = '.Datos_usuarios/Usuarios' #Cambia a la ruta donde hayas almacenado Data
@@ -30,7 +30,7 @@ faceClassif = cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_frontalfa
 
 def open_locker(locker_number):
     # Activación del servo correspondiente durante 5 segundos
-    servo_pin = servo_pins[locker_number-1]
+    servo_pin = cerradura_pins[locker_number-1]
     GPIO.output(servo_pin, GPIO.HIGH)
     time.sleep(5)
     GPIO.output(servo_pin, GPIO.LOW)
