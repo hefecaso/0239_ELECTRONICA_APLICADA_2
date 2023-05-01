@@ -82,37 +82,36 @@ def verificar_usuario():
                 break
 
     if existe:
-        if os.path.exists(carpeta):
+        if os.path.exists(carpeta) and numero_locker == 1:
             tkinter.messagebox.showinfo('Abriendo locker', f"Locker abierto!\nNúmero de locker: {numero_locker}")
+            GPIO.output(PinLocker1, GPIO.HIGH)
+            time.sleep(5)
+            GPIO.output(PinLocker1, GPIO.LOW)
             ventana.destroy()
 
-            if numero_locker == 1:
-                GPIO.output(PinLocker1, GPIO.HIGH)
-                time.sleep(5)
-                GPIO.output(PinLocker1, GPIO.LOW)
+        elif os.path.exists(carpeta) and numero_locker == 2:
+            tkinter.messagebox.showinfo('Abriendo locker', f"Locker abierto!\nNúmero de locker: {numero_locker}")
+            GPIO.output(PinLocker2, GPIO.HIGH)
+            time.sleep(5)
+            GPIO.output(PinLocker2, GPIO.LOW)
 
-            elif numero_locker == 2:
-                GPIO.output(PinLocker2, GPIO.HIGH)
-                time.sleep(5)
-                GPIO.output(PinLocker2, GPIO.LOW)
+        elif os.path.exists(carpeta) and numero_locker == 3:
+            tkinter.messagebox.showinfo('Abriendo locker', f"Locker abierto!\nNúmero de locker: {numero_locker}")
+            GPIO.output(PinLocker3, GPIO.HIGH)
+            time.sleep(5)
+            GPIO.output(PinLocker3, GPIO.LOW)
 
-            elif numero_locker == 3:
-                GPIO.output(PinLocker3, GPIO.HIGH)
-                time.sleep(5)
-                GPIO.output(PinLocker3, GPIO.LOW)
+        elif os.path.exists(carpeta) and numero_locker == 4:
+            tkinter.messagebox.showinfo('Abriendo locker', f"Locker abierto!\nNúmero de locker: {numero_locker}")
+            GPIO.output(PinLocker4, GPIO.HIGH)
+            time.sleep(5)
+            GPIO.output(PinLocker4, GPIO.LOW)
 
-            elif numero_locker == 4:
-                GPIO.output(PinLocker4, GPIO.HIGH)
-                time.sleep(5)
-                GPIO.output(PinLocker4, GPIO.LOW)
-
-            elif numero_locker == 5:
-                GPIO.output(PinLocker5, GPIO.HIGH)
-                time.sleep(5)
-                GPIO.output(PinLocker5, GPIO.LOW)
-
-            else:
-                continue 
+        elif os.path.exists(carpeta) and numero_locker == 5:
+            tkinter.messagebox.showinfo('Abriendo locker', f"Locker abierto!\nNúmero de locker: {numero_locker}")
+            GPIO.output(PinLocker5, GPIO.HIGH)
+            time.sleep(5)
+            GPIO.output(PinLocker5, GPIO.LOW)
 
         else:
             ventana_abierta = tk.Toplevel(ventana)
