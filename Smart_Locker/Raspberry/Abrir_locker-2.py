@@ -3,12 +3,11 @@ import csv
 import os
 import cv2
 import tkinter.messagebox
-import RPi.GPIO as GPIO
-import time
+
 
 GPIO.setmode(GPIO.BOARD)
 
-# Configuración de los pines de salida para las cerraduras
+# Configuración de los pines en la raspberry de salida para las cerraduras
 PinLocker1 = 7
 PinLocker2 = 29
 PinLocker3 = 31
@@ -89,36 +88,24 @@ def verificar_usuario():
                 break
 
     if existe:
-        if os.path.exists(carpeta) and numero_locker == 1:
+        if os.path.exists(carpeta):
             tkinter.messagebox.showinfo('Abriendo locker', f"Locker abierto!\nNúmero de locker: {numero_locker}")
-            GPIO.output(PinLocker1, GPIO.HIGH)
-            time.sleep(5)
-            GPIO.output(PinLocker1, GPIO.LOW)
             ventana.destroy()
-
-        elif os.path.exists(carpeta) and numero_locker == 2:
-            tkinter.messagebox.showinfo('Abriendo locker', f"Locker abierto!\nNúmero de locker: {numero_locker}")
-            GPIO.output(PinLocker2, GPIO.HIGH)
-            time.sleep(5)
-            GPIO.output(PinLocker2, GPIO.LOW)
-
-        elif os.path.exists(carpeta) and numero_locker == 3:
-            tkinter.messagebox.showinfo('Abriendo locker', f"Locker abierto!\nNúmero de locker: {numero_locker}")
-            GPIO.output(PinLocker3, GPIO.HIGH)
-            time.sleep(5)
-            GPIO.output(PinLocker3, GPIO.LOW)
-
-        elif os.path.exists(carpeta) and numero_locker == 4:
-            tkinter.messagebox.showinfo('Abriendo locker', f"Locker abierto!\nNúmero de locker: {numero_locker}")
-            GPIO.output(PinLocker4, GPIO.HIGH)
-            time.sleep(5)
-            GPIO.output(PinLocker4, GPIO.LOW)
-
-        elif os.path.exists(carpeta) and numero_locker == 5:
-            tkinter.messagebox.showinfo('Abriendo locker', f"Locker abierto!\nNúmero de locker: {numero_locker}")
-            GPIO.output(PinLocker5, GPIO.HIGH)
-            time.sleep(5)
-            GPIO.output(PinLocker5, GPIO.LOW)
+            
+            # Acciones según el número de locker
+            if numero_locker == "1":
+                GPIO.output(PinLocker1, GPIO.HIGH)
+            elif numero_locker == "2":
+                GPIO.output(PinLocker2, GPIO.HIGH)
+            elif numero_locker == "3":
+                GPIO.output(PinLocker3, GPIO.HIGH)
+            elif numero_locker == "4":
+                GPIO.output(PinLocker4, GPIO.HIGH)
+            elif numero_locker == "5":
+                GPIO.output(PinLocker5, GPIO.HIGH)
+            else:
+                print("Número de locker no válido")
+                # Mostrar mensaje de error si el número de locker no es válido
 
         else:
             ventana_abierta = tk.Toplevel(ventana)
@@ -126,9 +113,9 @@ def verificar_usuario():
             etiqueta = tk.Label(ventana_abierta, text="No se encontró la carpeta para reconocimiento biométrico")
             etiqueta.pack()
     else:
-        #ventana_abierta = tk.Toplevel(ventana)
         tkinter.messagebox.showerror('Error', 'Credenciales incorrectas')
         ventana.destroy()
+
 
 ventana = tk.Tk()
 ventana.geometry("400x300")
@@ -150,3 +137,10 @@ boton = tk.Button(ventana, text="Verificar", command=verificar_usuario)
 boton.pack()
 
 ventana.mainloop()
+
+
+
+
+
+
+
