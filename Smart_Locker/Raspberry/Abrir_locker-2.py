@@ -12,22 +12,11 @@ GPIO.setmode(GPIO.BOARD)
 # Configuración de los pines en la raspberry de salida para las cerraduras
 PinLocker1 = 7
 PinLocker2 = 29
-PinLocker3 = 31
-PinLocker4 = 24
-PinLocker5 = 26
+
 
 GPIO.setup(PinLocker1, GPIO.OUT)
 GPIO.setup(PinLocker2, GPIO.OUT)
-GPIO.setup(PinLocker3, GPIO.OUT)
-GPIO.setup(PinLocker4, GPIO.OUT)
-GPIO.setup(PinLocker5, GPIO.OUT)
 
-#Estado inicial de los lockers
-GPIO.output(PinLocker1, GPIO.LOW)
-GPIO.output(PinLocker2, GPIO.LOW)
-GPIO.output(PinLocker3, GPIO.LOW)
-GPIO.output(PinLocker4, GPIO.LOW)
-GPIO.output(PinLocker5, GPIO.LOW)
 
 
 dataPath = '.Datos_usuarios/Usuarios' #Cambia a la ruta donde hayas almacenado Data
@@ -107,24 +96,6 @@ def verificar_usuario():
                 GPIO.output(PinLocker2, GPIO.HIGH)
                 time.sleep(5)
                 GPIO.output(PinLocker2, GPIO.LOW)
-                # Limpiar pines GPIO al finalizar el programa
-                GPIO.cleanup()
-            elif numero_locker == "3":
-                GPIO.output(PinLocker3, GPIO.HIGH)
-                time.sleep(5)
-                GPIO.output(PinLocker3, GPIO.LOW)
-                # Limpiar pines GPIO al finalizar el programa
-                GPIO.cleanup()
-            elif numero_locker == "4":
-                GPIO.output(PinLocker4, GPIO.HIGH)
-                time.sleep(5)
-                GPIO.output(PinLocker4, GPIO.LOW)
-                # Limpiar pines GPIO al finalizar el programa
-                GPIO.cleanup()
-            elif numero_locker == "5":
-                GPIO.output(PinLocker5, GPIO.HIGH)
-                time.sleep(5)
-                GPIO.output(PinLocker5, GPIO.LOW)
                 # Limpiar pines GPIO al finalizar el programa
                 GPIO.cleanup()
             else:
