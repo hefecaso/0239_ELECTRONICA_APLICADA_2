@@ -10,7 +10,7 @@ GPIO.setmode(GPIO.BOARD)
 
 # Configuración de los pines en la raspberry de salida para las cerraduras
 PinLocker1 = 7
-PinLocker2 = 29
+PinLocker2 = 11
 
 
 GPIO.setup(PinLocker1, GPIO.OUT)
