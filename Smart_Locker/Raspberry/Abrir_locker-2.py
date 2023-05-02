@@ -8,12 +8,12 @@ import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BOARD)
 # Configuración de los pines en la raspberry de salida para las cerraduras
-PinLocker1 = 7
-PinLocker2 = 11
 
+PinLocker1 = 11
+PinLocker2 = 13
 
-GPIO.setup(7, GPIO.OUT)
-GPIO.setup(11, GPIO.OUT)
+GPIO.setup(PinLocker1, GPIO.OUT)
+GPIO.setup(PinLocker2, GPIO.OUT)
 
 
 
@@ -33,6 +33,9 @@ cap = cv2.VideoCapture(-1)
 faceClassif = cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
 
 while True:
+
+    GPIO.output(PinLocker1, GPIO.LOW)
+    GPIO.output(PinLocker2, GPIO.LOW)
 
     ret,frame = cap.read()
     if ret == False: break
@@ -65,8 +68,6 @@ cap.release()
 cv2.destroyAllWindows()
 
 def verificar_usuario():
-    GPIO.output(PinLocker1, GPIO.LOW)
-    GPIO.output(PinLocker2, GPIO.LOW)
     usuario = entry_usuario.get()
     contraseña = entry_contraseña.get()
     carpeta = f'.Datos_usuarios/Usuarios/{usuario}'
