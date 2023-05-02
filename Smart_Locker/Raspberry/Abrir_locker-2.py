@@ -65,6 +65,8 @@ cap.release()
 cv2.destroyAllWindows()
 
 def verificar_usuario():
+    GPIO.output(PinLocker1, GPIO.LOW)
+    GPIO.output(PinLocker2, GPIO.LOW)
     usuario = entry_usuario.get()
     contraseña = entry_contraseña.get()
     carpeta = f'.Datos_usuarios/Usuarios/{usuario}'
