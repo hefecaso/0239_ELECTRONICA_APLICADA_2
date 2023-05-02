@@ -34,8 +34,8 @@ faceClassif = cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_frontalfa
 
 while True:
 
-    GPIO.output(PinLocker1, GPIO.LOW)
-    GPIO.output(PinLocker2, GPIO.LOW)
+    GPIO.output(PinLocker1, GPIO.HIGH)
+    GPIO.output(PinLocker2, GPIO.HIGH)
 
     ret,frame = cap.read()
     if ret == False: break
