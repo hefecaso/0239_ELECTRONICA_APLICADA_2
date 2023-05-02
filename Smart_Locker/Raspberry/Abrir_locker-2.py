@@ -95,14 +95,24 @@ def verificar_usuario():
             # Acciones según el número de locker
             if numero_locker == "1":
                 GPIO.output(PinLocker1, GPIO.HIGH)
+                time.sleep(5)
+                GPIO.output(PinLocker1, GPIO.LOW)
             elif numero_locker == "2":
                 GPIO.output(PinLocker2, GPIO.HIGH)
+                time.sleep(5)
+                GPIO.output(PinLocker2, GPIO.LOW)
             elif numero_locker == "3":
                 GPIO.output(PinLocker3, GPIO.HIGH)
+                time.sleep(5)
+                GPIO.output(PinLocker3, GPIO.LOW)
             elif numero_locker == "4":
                 GPIO.output(PinLocker4, GPIO.HIGH)
+                time.sleep(5)
+                GPIO.output(PinLocker4, GPIO.LOW)
             elif numero_locker == "5":
                 GPIO.output(PinLocker5, GPIO.HIGH)
+                time.sleep(5)
+                GPIO.output(PinLocker5, GPIO.LOW)
             else:
                 print("Número de locker no válido")
                 # Mostrar mensaje de error si el número de locker no es válido
