@@ -57,8 +57,8 @@ while True:
 
 
     #Estado inicial de los pines
-    GPIO.output(PinLocker1, GPIO.HIGH) #Cerrar
-    GPIO.output(PinLocker2, GPIO.HIGH) #Cerrar
+    GPIO.output(PinLocker1, GPIO.LOW) #Cerrar
+    GPIO.output(PinLocker2, GPIO.LOW) #Cerrar
     GPIO.output(PinLocker3, GPIO.HIGH) #Cerrar
     GPIO.output(PinLocker4, GPIO.HIGH) #Cerrar
     GPIO.output(PinLocker5, GPIO.HIGH) #Cerrar
@@ -129,15 +129,15 @@ def verificar_usuario():
 
             # Acciones según el número de locker
             if numero_locker == "1":
-                GPIO.output(PinLocker1, GPIO.LOW) #Abrir
+                GPIO.output(PinLocker1, GPIO.HIGH) #Abrir
                 time.sleep(5)
-                GPIO.output(PinLocker1, GPIO.HIGH) #Cerrar
+                GPIO.output(PinLocker1, GPIO.LOW) #Cerrar
                 # Limpiar pines GPIO al finalizar el programa
                 GPIO.cleanup()
             elif numero_locker == "2":
-                GPIO.output(PinLocker2, GPIO.LOW) #Abrir
+                GPIO.output(PinLocker2, GPIO.HIGH) #Abrir
                 time.sleep(5)
-                GPIO.output(PinLocker2, GPIO.HIGH) #Cerrar
+                GPIO.output(PinLocker2, GPIO.LOW) #Cerrar
                 # Limpiar pines GPIO al finalizar el programa
                 GPIO.cleanup()
             elif numero_locker == "3":
