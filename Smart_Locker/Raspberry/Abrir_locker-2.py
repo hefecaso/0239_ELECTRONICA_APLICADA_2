@@ -43,8 +43,6 @@ while True:
     GPIO.setup(PinLocker1, GPIO.OUT)
     GPIO.setup(PinLocker2, GPIO.OUT)
 
-    GPIO.output(PinLocker1, GPIO.LOW)
-    GPIO.output(PinLocker2, GPIO.LOW)
 
     ret,frame = cap.read()
     if ret == False: break
