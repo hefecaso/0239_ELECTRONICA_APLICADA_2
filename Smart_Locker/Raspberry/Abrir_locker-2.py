@@ -4,7 +4,7 @@ import os
 import cv2
 import tkinter.messagebox
 import RPi.GPIO as GPIO
-
+import time
 
 GPIO.setmode(GPIO.BOARD)
 # Configuración de los pines en la raspberry de salida para las cerraduras
@@ -110,13 +110,13 @@ def verificar_usuario():
             if numero_locker == "1":
                 GPIO.output(PinLocker1, GPIO.LOW) #Abrir
                 time.sleep(5)
-                GPIO.output(PinLocker1, GPIO.LOW)
+                GPIO.output(PinLocker1, GPIO.HIGH)
                 # Limpiar pines GPIO al finalizar el programa
                 GPIO.cleanup()
             elif numero_locker == "2":
                 GPIO.output(PinLocker2, GPIO.LOW) #Abrir
                 time.sleep(5)
-                GPIO.output(PinLocker2, GPIO.LOW)
+                GPIO.output(PinLocker2, GPIO.HIGH)
                 # Limpiar pines GPIO al finalizar el programa
                 GPIO.cleanup()
             else:
