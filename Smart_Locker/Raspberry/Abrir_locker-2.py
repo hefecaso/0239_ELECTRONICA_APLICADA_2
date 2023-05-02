@@ -7,13 +7,19 @@ import RPi.GPIO as GPIO
 import time
 
 GPIO.setmode(GPIO.BOARD)
-# Configuración de los pines en la raspberry de salida para las cerraduras
 
+# Configuración de los pines en la raspberry de salida para las cerraduras
 PinLocker1 = 11
 PinLocker2 = 13
+PinLocker3 = 15
+PinLocker4 = 29
+PinLocker5 = 31
 
 GPIO.setup(PinLocker1, GPIO.OUT)
 GPIO.setup(PinLocker2, GPIO.OUT)
+GPIO.setup(PinLocker3, GPIO.OUT)
+GPIO.setup(PinLocker4, GPIO.OUT)
+GPIO.setup(PinLocker5, GPIO.OUT)
 
 
 
@@ -35,18 +41,27 @@ faceClassif = cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_frontalfa
 while True:
 
     GPIO.setmode(GPIO.BOARD)
-    # Configuración de los pines en la raspberry de salida para las cerraduras
 
+    # Configuración de los pines en la raspberry de salida para las cerraduras
     PinLocker1 = 11
     PinLocker2 = 13
+    PinLocker3 = 15
+    PinLocker4 = 29
+    PinLocker5 = 31
 
     GPIO.setup(PinLocker1, GPIO.OUT)
     GPIO.setup(PinLocker2, GPIO.OUT)
+    GPIO.setup(PinLocker3, GPIO.OUT)
+    GPIO.setup(PinLocker4, GPIO.OUT)
+    GPIO.setup(PinLocker5, GPIO.OUT)
 
 
     #Estado inicial de los pines
-    GPIO.output(PinLocker2, GPIO.HIGH) #Cerrar
     GPIO.output(PinLocker1, GPIO.HIGH) #Cerrar
+    GPIO.output(PinLocker2, GPIO.HIGH) #Cerrar
+    GPIO.output(PinLocker3, GPIO.HIGH) #Cerrar
+    GPIO.output(PinLocker4, GPIO.HIGH) #Cerrar
+    GPIO.output(PinLocker5, GPIO.HIGH) #Cerrar
 
 
     ret,frame = cap.read()
@@ -86,13 +101,19 @@ def verificar_usuario():
     existe = False
 
     GPIO.setmode(GPIO.BOARD)
-    # Configuración de los pines en la raspberry de salida para las cerraduras
 
+    # Configuración de los pines en la raspberry de salida para las cerraduras
     PinLocker1 = 11
     PinLocker2 = 13
+    PinLocker3 = 15
+    PinLocker4 = 29
+    PinLocker5 = 31
 
     GPIO.setup(PinLocker1, GPIO.OUT)
     GPIO.setup(PinLocker2, GPIO.OUT)
+    GPIO.setup(PinLocker3, GPIO.OUT)
+    GPIO.setup(PinLocker4, GPIO.OUT)
+    GPIO.setup(PinLocker5, GPIO.OUT)
 
     with open(".Datos_usuarios/usuarios.csv", "r") as file:
         reader = csv.DictReader(file)
@@ -117,6 +138,24 @@ def verificar_usuario():
                 GPIO.output(PinLocker2, GPIO.LOW) #Abrir
                 time.sleep(5)
                 GPIO.output(PinLocker2, GPIO.HIGH) #Cerrar
+                # Limpiar pines GPIO al finalizar el programa
+                GPIO.cleanup()
+            elif numero_locker == "3":
+                GPIO.output(PinLocker3, GPIO.LOW) #Abrir
+                time.sleep(5)
+                GPIO.output(PinLocker3, GPIO.HIGH) #Cerrar
+                # Limpiar pines GPIO al finalizar el programa
+                GPIO.cleanup()
+            elif numero_locker == "4":
+                GPIO.output(PinLocker4, GPIO.LOW) #Abrir
+                time.sleep(5)
+                GPIO.output(PinLocker4, GPIO.HIGH) #Cerrar
+                # Limpiar pines GPIO al finalizar el programa
+                GPIO.cleanup()
+            elif numero_locker == "5":
+                GPIO.output(PinLocker5, GPIO.LOW) #Abrir
+                time.sleep(5)
+                GPIO.output(PinLocker5, GPIO.HIGH) #Cerrar
                 # Limpiar pines GPIO al finalizar el programa
                 GPIO.cleanup()
             else:
