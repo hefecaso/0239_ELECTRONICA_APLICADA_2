@@ -20,12 +20,6 @@ GPIO.setup(PinLocker3, GPIO.OUT)
 GPIO.setup(PinLocker4, GPIO.OUT)
 GPIO.setup(PinLocker5, GPIO.OUT)
 
-#Estado inicial de los lockers
-GPIO.output(PinLocker1, GPIO.LOW)
-GPIO.output(PinLocker2, GPIO.LOW)
-GPIO.output(PinLocker3, GPIO.LOW)
-GPIO.output(PinLocker4, GPIO.LOW)
-GPIO.output(PinLocker5, GPIO.LOW)
 
 dataPath = '.Datos_usuarios/Usuarios' #Cambia a la ruta donde hayas almacenado Data
 imagePaths = os.listdir(dataPath)
@@ -43,6 +37,13 @@ cap = cv2.VideoCapture(-1)
 faceClassif = cv2.CascadeClassifier(cv2.data.haarcascades+'haarcascade_frontalface_default.xml')
 
 while True:
+    #Estado inicial de los lockers
+    GPIO.output(PinLocker1, GPIO.LOW)
+    GPIO.output(PinLocker2, GPIO.LOW)
+    GPIO.output(PinLocker3, GPIO.LOW)
+    GPIO.output(PinLocker4, GPIO.LOW)
+    GPIO.output(PinLocker5, GPIO.LOW)
+
     ret,frame = cap.read()
     if ret == False: break
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
