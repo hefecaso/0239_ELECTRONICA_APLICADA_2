@@ -3,7 +3,7 @@ import csv
 import os
 import cv2
 import tkinter.messagebox
-
+import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BOARD)
 
