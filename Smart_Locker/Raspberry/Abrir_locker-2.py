@@ -44,6 +44,11 @@ while True:
     GPIO.setup(PinLocker2, GPIO.OUT)
 
 
+    #Estado inicial de los pines
+    GPIO.output(PinLocker2, GPIO.HIGH) #Cerrar
+    GPIO.output(PinLocker1, GPIO.HIGH) #Cerrar
+
+
     ret,frame = cap.read()
     if ret == False: break
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -103,15 +108,13 @@ def verificar_usuario():
 
             # Acciones según el número de locker
             if numero_locker == "1":
-                GPIO.output(PinLocker2, GPIO.LOW)
-                GPIO.output(PinLocker1, GPIO.HIGH)
+                GPIO.output(PinLocker1, GPIO.LOW) #Abrir
                 time.sleep(5)
                 GPIO.output(PinLocker1, GPIO.LOW)
                 # Limpiar pines GPIO al finalizar el programa
                 GPIO.cleanup()
             elif numero_locker == "2":
-                GPIO.output(PinLocker1, GPIO.LOW)
-                GPIO.output(PinLocker2, GPIO.HIGH)
+                GPIO.output(PinLocker2, GPIO.LOW) #Abrir
                 time.sleep(5)
                 GPIO.output(PinLocker2, GPIO.LOW)
                 # Limpiar pines GPIO al finalizar el programa
