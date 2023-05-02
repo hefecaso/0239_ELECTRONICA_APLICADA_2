@@ -5,8 +5,7 @@ import cv2
 import tkinter.messagebox
 import RPi.GPIO as GPIO
 
-# Limpiar pines GPIO al finalizar el programa
-GPIO.cleanup()
+
 GPIO.setmode(GPIO.BOARD)
 
 # Configuración de los pines en la raspberry de salida para las cerraduras
