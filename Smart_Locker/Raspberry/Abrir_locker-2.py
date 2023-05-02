@@ -99,18 +99,18 @@ def verificar_usuario():
 
     if existe:
         if os.path.exists(carpeta):
-            GPIO.output(PinLocker1, GPIO.LOW)
-            GPIO.output(PinLocker2, GPIO.LOW)
             tkinter.messagebox.showinfo('Abriendo locker', f"Locker abierto!\nNúmero de locker: {numero_locker}")
 
             # Acciones según el número de locker
             if numero_locker == "1":
+                GPIO.output(PinLocker2, GPIO.LOW)
                 GPIO.output(PinLocker1, GPIO.HIGH)
                 time.sleep(5)
                 GPIO.output(PinLocker1, GPIO.LOW)
                 # Limpiar pines GPIO al finalizar el programa
                 GPIO.cleanup()
             elif numero_locker == "2":
+                GPIO.output(PinLocker1, GPIO.LOW)
                 GPIO.output(PinLocker2, GPIO.HIGH)
                 time.sleep(5)
                 GPIO.output(PinLocker2, GPIO.LOW)
